@@ -46,12 +46,43 @@
  */
 export function createDialogueWriter(genre) {
   // Your code here
+  const avlGenre = ["action", "romance", "comedy", "drama"]
+  if(!avlGenre.includes(genre)) return null
+
+  return (hero, villain) => {
+    if(!hero || !villain || hero === "" || villain === "") return "..."
+    if(genre == "action") return `${hero} says: 'Tujhe toh main dekh lunga, ${villain}!'`
+    if(genre == "romance") return `${hero} whispers: '${villain}, tum mere liye sab kuch ho'`
+    if(genre == "comedy") return  `${hero} laughs: '${villain} bhai, kya kar rahe ho yaar!'`
+    if(genre == "drama") return `${hero} cries: '${villain}, tune mera sab kuch cheen liya!'`
+  }
 }
 
 export function createTicketPricer(basePrice) {
   // Your code here
+  if(typeof basePrice !== "number" || basePrice <=0) return null
+  return (seatType, isWeekend = false) => {
+  const avlSeat = ["silver", "gold", "platinum"] 
+  if(!avlSeat.includes(seatType)) return null
+    if(seatType == "silver") basePrice *= 1
+    if(seatType == "gold") basePrice *= 1.5
+    if(seatType == "platinum") basePrice *= 2
+    if(isWeekend) basePrice *= 1.3
+    return basePrice
+  }
 }
 
 export function createRatingCalculator(weights) {
   // Your code here
+  if(typeof weights !== "object" || !weights) return null
+  return (scores) => {
+    if (!scores || typeof scores !== "object") return null;
+    let weightAvg = 0
+    for (const key in weights) {
+      if (scores[key] !== undefined) {
+        weightAvg += weights[key] * scores[key];
+      }
+    }
+    return Number(weightAvg.toFixed(1))
+  }
 }
